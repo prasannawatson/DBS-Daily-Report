@@ -1,0 +1,55 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+.top-heading {
+    width: 100%;
+    background-color: white;
+    height: 48px;
+    line-height: 48px;
+    position: fixed;
+    display: block;
+    z-index: 9;
+    border-bottom: 1px solid #e0e0e0;
+}
+.logo-image {
+    width: 48px;
+    height: 48px;
+    float: left;
+    line-height: 48px;
+    text-align: center;
+}
+.logo {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.container-div{
+    position: relative;
+    top:58px;
+}
+.heading {
+    font: 400 32px/30px Open Sans, sans-serif;
+    margin: 12px 0px 10px;
+    text-align: left;
+    text-transform: uppercase;
+}
+.calculation span{
+    font-size: 18px;
+    margin-top:30px;
+}
+.rating{
+    margin-top: 30px;
+}
+b {
+    font-size: 24px;
+}
+.calculation h2{
+    font: 300 21px/30px Open Sans, sans-serif;
+    margin: 45px 0 16px 0;
+}
+.calculation img {
+    width: 30px;
+    margin-right: 20px;
+}
