@@ -27,7 +27,7 @@ body{
 }
 .container-div{
     position: relative;
-    top:58px;
+    top:18px;
 }
 .heading {
     font: 400 32px/30px Open Sans, sans-serif;
@@ -57,6 +57,7 @@ b {
     float: left;
     margin-top: 1px;
     vertical-align: middle;
+    line-height: 19px;
 }
 .fromDate {
     width: 25%;
@@ -71,4 +72,7 @@ b {
     float: right;
     margin-right: 30px;
     cursor: pointer;
+}
+.heading span sup {
+    text-transform: lowercase;
 }

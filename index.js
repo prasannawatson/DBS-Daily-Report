@@ -241,6 +241,9 @@ var toDate, fromDate;
 function getFromDate(){
     fromDate = $("#fromdatepicker").val();
 }
+function myFunction() {
+  window.print();
+}
 
 function getToDate(){
     toDate = $("#todatepicker").val();
