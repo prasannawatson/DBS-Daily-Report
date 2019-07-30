@@ -67,3 +67,8 @@ b {
     margin-left: 60px;
     width: 25%;
 }
+#download-pdf {
+    float: right;
+    margin-right: 30px;
+    cursor: pointer;
+}
