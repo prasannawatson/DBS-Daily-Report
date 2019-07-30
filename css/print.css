@@ -1,0 +1,48 @@
+.container{
+    width: 100% !important;
+    margin-top:0px;
+}
+@page { size: auto;  margin: 0mm; }
+#header{
+    display: none;
+}
+.calculation img {
+    width: 30px;
+    margin-right: 20px;
+}
+.col-lg-6{
+    width: 50%;
+    float: left;
+    margin-bottom: 70px;
+}
+.heading {
+    font: 400 32px/30px Open Sans, sans-serif;
+    margin: 12px 0px 10px;
+    text-align: left;
+    text-transform: uppercase;
+}
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+b {
+    font-size: 24px;
+}
+.container-div{
+    position: relative;
+    top:0px;
+}
+.calculation span{
+    font-size: 18px;
+    margin-top:30px;
+}
+.rating {
+    margin-top: 30px;
+}
+.calculation h2{
+    font: 300 21px/30px Open Sans, sans-serif;
+    margin: 45px 0 16px 0;
+}
+.calculation1 h2{
+    font: 300 21px/30px Open Sans, sans-serif;
+    margin: 5px 0 5px 0 !important;
+}
