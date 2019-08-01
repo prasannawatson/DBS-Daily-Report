@@ -76,3 +76,23 @@ b {
 .heading span sup {
     text-transform: lowercase;
 }
+table{
+    border-spacing: 0px;
+    box-shadow: 2px 2px 10px #e7e7e7;
+}
+
+tr, th{
+    border-bottom: 1px solid #e7e7e7;
+    padding:10px 24px 10px 24px;
+    text-align: left;
+}
+
+tr{
+    color: rgba(0, 0, 0, 0.87);
+    font-size:14px;
+}
+
+th{
+    color: rgba(0, 0, 0, 0.54);
+    font-size:12px;
+}
