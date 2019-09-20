@@ -211,7 +211,7 @@ var tables = {
 };
 
 //To set ratings
-function setRating(){
+function setRating(){ 
     document.getElementById("gplay-rating").innerHTML = rating.gplay.count;
     document.getElementById("app-rating").innerHTML = rating.app.count; 
     document.getElementById("gplay-average").innerHTML = rating.gplay.average;
@@ -489,23 +489,55 @@ function chart2(){
     });
 }
 
-//To get from date
-function getFromDate(){
-    fromDate = $("#fromdatepicker").val();
-}
-
 //To save as PDF
 function myFunction() {
   window.print();
 }
 
-//To get to date
-function getToDate(){
-    toDate = $("#todatepicker").val();
-    setRating();
-    createTableApp();
-    createTableGplay();
-    chart1();
-    chart2();
+//To get from and to date
+function getDate(){
+  fromDate = $("#fromdatepicker").val();
+  toDate = $("#todatepicker").val();
+  var month = fromDate[0]+fromDate[1];
+  var date = fromDate[3]+fromDate[4];
+  var year = fromDate[6]+fromDate[7]+fromDate[8]+fromDate[9];
+  fromDate = " ";
+  fromDate = month + '-' + date + '-' + year;
+  var month = toDate[0]+toDate[1];
+  var date = toDate[3]+toDate[4];
+  var year = toDate[6]+toDate[7]+toDate[8]+toDate[9];
+  toDate = " ";
+  toDate = month + '-' + date + '-' + year;
+  console.log(toDate);
+  console.log(fromDate);
+  document.querySelector(".container").style.display = "block";
+  document.querySelector(".chart").style.display = "block";
+  setRating();
+  createTableApp();
+  createTableGplay();
+  chart1();
+  chart2();
 }
 
+function apicall(){
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.getcloudcherry.com/api/Settings",
+    "method": "POST",
+    "headers": {
+        "Accept" : "*/*",
+        "contentType" : 'application/x-www-form-urlencoded; charset=UTF-8',
+        "Authorization": auth_token
+    },
+    "data": body,
+    error: function(xhr, error) {
+        alert("Settings API failed");
+    }
+  };
+  $.ajax(settings).done(function(oResponse) {
+      if (oResponse) {
+          console.log(oResponse);
+      }
+  });
+}

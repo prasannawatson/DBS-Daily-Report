@@ -11,6 +11,9 @@ body{
     z-index: 9;
     border-bottom: 1px solid #e0e0e0;
 }
+.container, .chart{
+    display:none;
+}
 .logo-image {
     width: 48px;
     height: 48px;
