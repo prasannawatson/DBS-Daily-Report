@@ -1,380 +1,259 @@
 $('#fromdatepicker').datepicker();
-$('#todatepicker').datepicker();
+var fromDate;
 
-var toDate, fromDate;
-
-var rating = {
-    "gplay" :{
-      "count" : 23,
-      "average" : 2.34
+//To get ratings
+function ratingsApi(date){ 
+  var url = "http://52.172.1.187:8097/api/CumulativeCount/Getvalues?Todate="
+  var url = url.concat(date);
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": url,
+    "method": "GET",
+    "headers": {
+        "Accept" : "*/*",
+        "contentType" : 'application/json'
     },
-    "app" :{
-      "count" : 23,
-      "average" : 2.34
+    error: function(xhr, error) {
+        alert("Ratings API failed");
     }
-}; 
-
-var charts ={
-    "app": {
-        "avg" : [3.721, 3.775, 3.806, 3.829, 3.837,4.0],
-        "col1" : {
-            "jan1" : 1053,
-            "jan2" : 1594,
-            "jan3" : 1146,
-            "jan4" : 977,
-            "jan5" : 341,
-            "jan6" : 250
-          },
-          "col2" : {
-            "jan1" : 323,
-            "jan2" : 498,
-            "jan3" : 279,
-            "jan4" : 244,
-            "jan5" : 356,
-            "jan6" : 250
-          },
-          "col3" : {
-            "jan1" : 241,
-            "jan2" : 252,
-            "jan3" : 153,
-            "jan4" : 153,
-            "jan5" : 153,
-            "jan6" : 250
-          },
-          "col4" : {
-            "jan1" : 152,
-            "jan2" : 109,
-            "jan3" : 106,
-            "jan4" : 82,
-            "jan5" : 82,
-            "jan6" : 250
-          },
-          "col5" : {
-            "jan1" : 462,
-            "jan2" : 294,
-            "jan3" : 295,
-            "jan4" : 274,
-            "jan5" : 955,
-            "jan6" : 250
-          }
-    },
-    "gplay" : {
-        "avg" : [3.721, 3.775, 3.806, 3.829, 3.837,4.0],
-        "col1" : {
-          "jan1" : 1053,
-          "jan2" : 1594,
-          "jan3" : 1146,
-          "jan4" : 977,
-          "jan5" : 341,
-          "jan6" : 250
-        },
-        "col2" : {
-          "jan1" : 323,
-          "jan2" : 498,
-          "jan3" : 279,
-          "jan4" : 244,
-          "jan5" : 356,
-          "jan6" : 250
-        },
-        "col3" : {
-          "jan1" : 241,
-          "jan2" : 252,
-          "jan3" : 153,
-          "jan4" : 153,
-          "jan5" : 153,
-          "jan6" : 250
-        },
-        "col4" : {
-          "jan1" : 152,
-          "jan2" : 109,
-          "jan3" : 106,
-          "jan4" : 82,
-          "jan5" : 82,
-          "jan6" : 250
-        },
-        "col5" : {
-          "jan1" : 462,
-          "jan2" : 294,
-          "jan3" : 295,
-          "jan4" : 274,
-          "jan5" : 955,
-          "jan6" : 250
-        }
-    }
-};
-
-var tables = {
-    "gplay" :{
-      "row1" : {
-        "rated 1-3": "1",
-        "count" : "2",
-        "proportions(%)" : "3"
-      },
-      "row2" : {
-        "rated 1-3": "1",
-        "count" : "2",
-        "proportions(%)" : "3"
-      },
-      "row3" : {
-        "rated 1-3": "1",
-        "count" : "2",
-        "proportions(%)" : "3"
-      },
-      "row4" : {
-        "rated 1-3": "1",
-        "count" : "2",
-        "proportions(%)" : "3"
-      },
-      "row5" : {
-        "rated 1-3": "1",
-        "count" : "2",
-        "proportions(%)" : "3"
-      },
-      "row6" : {
-        "rated 1-3": "1",
-        "count" : "2",
-        "proportions(%)" : "3"
-      },
-      "row7" : {
-        "rated 1-3": "1",
-        "count" : "2",
-        "proportions(%)" : "3"
-      },
-      "row8" : {
-        "rated 1-3": "1",
-        "count" : "2",
-        "proportions(%)" : "3"
-      },
-      "row9" : {
-        "rated 1-3": 1,
-        "count" : 2,
-        "proportions(%)" : 3
-      },
-      "row10" : {
-        "rated 1-3": " ",
-        "count" : " ",
-        "proportions(%)" :  " "      
+  };
+  $.ajax(settings).done(function(oResponse) {
+      if (oResponse) {
+        rating = oResponse;
+        setRating(rating);
       }
-    },
-    "app" :{
-        "row1" : {
-            "rated 1-3": "1",
-            "count" : "2",
-            "proportions(%)" : "3"
-          },
-          "row2" : {
-            "rated 1-3": "1",
-            "count" : "2",
-            "proportions(%)" : "3"
-          },
-          "row3" : {
-            "rated 1-3": "1",
-            "count" : "2",
-            "proportions(%)" : "3"
-          },
-          "row4" : {
-            "rated 1-3": "1",
-            "count" : "2",
-            "proportions(%)" : "3"
-          },
-          "row5" : {
-            "rated 1-3": "1",
-            "count" : "2",
-            "proportions(%)" : "3"
-          },
-          "row6" : {
-            "rated 1-3": "1",
-            "count" : "2",
-            "proportions(%)" : "3"
-          },
-          "row7" : {
-            "rated 1-3": "1",
-            "count" : "2",
-            "proportions(%)" : "3"
-          },
-          "row8" : {
-            "rated 1-3": "1",
-            "count" : "2",
-            "proportions(%)" : "3"
-          },
-          "row9" : {
-            "rated 1-3": 1,
-            "count" : 2,
-            "proportions(%)" : 3
-          },
-          "row10" : {
-            "rated 1-3": 1,
-            "count" : 2,
-            "proportions(%)" : 3      
-          }
-    }
-};
+  });
+}
 
 //To set ratings
-function setRating(){ 
-    document.getElementById("gplay-rating").innerHTML = rating.gplay.count;
-    document.getElementById("app-rating").innerHTML = rating.app.count; 
-    document.getElementById("gplay-average").innerHTML = rating.gplay.average;
-    document.getElementById("app-average").innerHTML = rating.app.average; 
+function setRating(rating){
+  document.getElementById("gplay-rating").innerHTML = rating.Gplay.count;
+  document.getElementById("app-rating").innerHTML = rating.app.count; 
+  document.getElementById("gplay-average").innerHTML = rating.Gplay.average;
+  document.getElementById("app-average").innerHTML = rating.app.average;
+  document.getElementById("app-MTD").innerHTML = rating.app.monthly_rating;
+  document.getElementById("gplay-MTD").innerHTML = rating.Gplay.monthly_rating; 
 }
 
 //To create table for app
-function createTableApp(){
-    for(var i = 0; i<10; i++){
-        var key = Object.keys(tables.app);
-        var val = Object.values(tables.app[key[i]]);
+function createTable(val, id){
+    for(var i = 1; i< val.length; i++){
+      if(id == "Gplay"){
         //Inserting a row
-        var table = document.getElementById("myTable-app");
-        var row = table.insertRow(i+1);
+        var table = document.getElementById("myTable-gplay");
+        var row = table.insertRow(i);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
-        cell1.innerHTML = val[0] != " " ? val[0] : "-";
-        cell2.innerHTML = val[1] != " " ? val[1] : "-";
-        cell3.innerHTML = val[2] != " " ? val[2] : "-";
+        cell1.innerHTML = val[i][0] != " " ? val[i][0] : "-";
+        cell2.innerHTML = val[i][1] != " " ? val[i][1] : "-";
+        cell3.innerHTML = val[i][2] != " " ? val[i][2] : "-";
+      }
+      else if(id == "app"){
+        //Inserting a row
+        var table = document.getElementById("myTable-app");
+        var row = table.insertRow(i);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        cell1.innerHTML = val[i][0] != " " ? val[i][0] : "-";
+        cell2.innerHTML = val[i][1] != " " ? val[i][1] : "-";
+        cell3.innerHTML = val[i][2] != " " ? val[i][2] : "-";
+      }
     }
 }
 
-//To create table for gplay
-function createTableGplay(){
+//To get table values for gplay
+function getGplayValues(tables){
+  var table = [
+    ['Theme', 'Color', 'Whatever']
+  ];
+  header = [ "Theme", "count", "proportions"];
+  var values = [];
     for(var i = 0; i<10; i++){
-        var key = Object.keys(tables.gplay);
-        var val = Object.values(tables.gplay[key[i]]);
-        //Inserting a row
-        var table = document.getElementById("myTable-gplay");
-        var row = table.insertRow(i+1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        cell1.innerHTML = val[0] != " " ? val[0] : "-";
-        cell2.innerHTML = val[1] != " " ? val[1] : "-";
-        cell3.innerHTML = val[2] != " " ? val[2] : "-";
+      if(tables.Gplay && tables.Gplay[i]){ 
+        for(var key in tables.Gplay[i]){
+          var val = tables.Gplay[i][key];
+          var index  = header.indexOf(key);
+          values[index] = val;
+        }
+        table.push(values);
+        values = [];
+      }
+      else{
+        values = ['-', '-', '-'];
+        table.push(values);
+        values=[];
+      }
     }
+    createTable(table, "Gplay");
+}
+
+//To get table values for app
+function getAppValues(date){
+  var table = [
+    ['Theme', 'Color', 'Whatever']
+  ];
+  header = [ "Theme", "count", "proportions"];
+  var values = [];
+  var tables = {};
+  var url = "http://52.172.1.187:8097/api/CumulativeCount/Getissues?Todate="
+  var url = url.concat(date);
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": url,
+    "method": "GET",
+    "headers": {
+        "Accept" : "*/*",
+        "contentType" : 'application/json'
+    },
+    error: function(xhr, error) {
+        alert("Tables API failed");
+    }
+  };
+  $.ajax(settings).done(function(oResponse) {
+      if (oResponse) {
+        tables = oResponse;
+        for(var i = 0; i<10; i++){
+          if(tables.app && tables.app[i]){ 
+            for(var key in tables.app[i]){
+              var val = tables.app[i][key];
+              var index  = header.indexOf(key);
+              values[index] = val;
+            }
+            table.push(values);
+            values = [];
+          }
+          else{
+            values = ['-', '-', '-'];
+            table.push(values);
+            values=[];
+          }
+        }
+        getGplayValues(tables)
+        createTable(table, "app");
+      }
+  });
 }
 
 //Chart of google play
-function chart1(){
-    var keys;
-    keys = Object.keys(charts.app.col1);
-    chart = new Highcharts.Chart({
-        chart: {
-          renderTo: 'container',
-          zoomType: 'xy'
+function chart1(table){
+  document.querySelector(".chart").style.display = "block";
+  // var keys;
+  chart = new Highcharts.Chart({
+      chart: {
+        renderTo: 'chart11',
+        zoomType: 'xy'
+      },
+      title: {
+        text: ''
+      },
+      tooltip: {
+        formatter: function () {
+          return 'The value for <b>' + this.x + '</b> is <b>' + this.y /* + '</b>, in series ' + this.series.name;*/
+        }
+      },
+      plotOptions: {
+        column: {
+          stacking: 'normal'
         },
+        line: {
+          dataLabels: {
+            enabled: true
+          },
+          enableMouseTracking: false
+        }
+      },
+      credits: {
+        text: 'getcloudcherry.com',
+        href: 'https://www.getcloudcherry.com/'
+      },/*
+      xAxis: [{
+        categories: keys,
+      }],*/
+      yAxis: [{ // Primary yAxis
+        labels: {
+          format: '{value}',
+          style: {
+            color: Highcharts.getOptions().colors[1]
+          }
+        },
+        min: 0,
+        max: 5,
         title: {
-          text: ''
+          text: '',
+        }
+      }, { // Secondary yAxis
+        title: {
+          text: '',
         },
-        tooltip: {
-          formatter: function () {
-            return 'The value for <b>' + this.x + '</b> is <b>' + this.y /* + '</b>, in series ' + this.series.name;*/
-          }
+        labels: {
+          format: '{value}',
         },
-        plotOptions: {
-          column: {
-            stacking: 'normal'
-          },
-          line: {
-            dataLabels: {
-              enabled: true
-            },
-            enableMouseTracking: false
-          }
+        opposite: true
+      }],
+      legend: {
+        enabled: true
+      },
+      credits: {
+        text: 'getcloudcherry.com',
+        href: 'https://www.getcloudcherry.com/'
+      },
+  
+      series: [{
+          name: 'Cumulative average',
+          type: 'line',
+          data: table[5],
+          color: '#888888',
+          zIndex: 2
+        }, 
+        {
+          name: '5',
+          type: 'column',
+          yAxis: 1,
+          data: table[4],
+          color: '#0E9D58'
+        }, 
+        {
+          name: '4',
+          type: 'column',
+          yAxis: 1,
+          data: table[3],
+          color: '#BFD047'
         },
-        credits: {
-          text: 'getcloudcherry.com',
-          href: 'https://www.getcloudcherry.com/'
-        },
-        xAxis: [{
-          categories: keys,
-        }],
-        yAxis: [{ // Primary yAxis
-          labels: {
-            format: '{value}',
-            style: {
-              color: Highcharts.getOptions().colors[1]
-            }
-          },
-          min: 0,
-          max: 5,
-          title: {
-            text: '',
-          }
-        }, { // Secondary yAxis
-          title: {
-            text: '',
-          },
-          min: 0,
-          max: 3000,
-          labels: {
-            format: '{value}',
-          },
-          opposite: true
-        }],
-        legend: {
-          enabled: true
-        },
-        credits: {
-          text: 'getcloudcherry.com',
-          href: 'https://www.getcloudcherry.com/'
-        },
-    
-        series: [{
-            name: 'Cumulative average',
-            type: 'line',
-    
-            data: charts.gplay.avg,
-            color: '#888888',
-            zIndex: 2
-    
-    
-          }, {
-            name: '5',
-            type: 'column',
-            yAxis: 1,
-            data: Object.values(charts.gplay.col1),
-            color: '#0E9D58'
-    
-          }, {
-            name: '4',
-            type: 'column',
-            yAxis: 1,
-            data: Object.values(charts.gplay.col2),
-            color: '#BFD047'
-    
-          },
-          {
-            name: '3',
-            type: 'column',
-            yAxis: 1,
-            data: Object.values(charts.gplay.col3),
-            color: '#FFC105'
-    
-          }, {
-            name: '2',
-            type: 'column',
-            yAxis: 1,
-            data: Object.values(charts.gplay.col4),
-            color: '#EF7E14'
-    
-          }, {
-            name: '1',
-            type: 'column',
-            yAxis: 1,
-            data: Object.values(charts.gplay.col5),
-            color: '#D36259'
-    
-          }
-        ]
-      });
+        {
+          name: '3',
+          type: 'column',
+          yAxis: 1,
+          data: table[2],
+          color: '#FFC105'
+        }, 
+        {
+          name: '2',
+          type: 'column',
+          yAxis: 1,
+          data: table[1],
+          color: '#EF7E14'
+        }, 
+        {
+          name: '1',
+          type: 'column',
+          yAxis: 1,
+          data: table[0],
+          color: '#D36259'
+        }]
+    });
 }
   
 //Chart of app
-function chart2(){
-    var keys;
-    keys = Object.keys(charts.gplay.col1);
+function chart2(table){
+  var keys;
+  document.getElementById("chart2").style.display = "block";
     chart = new Highcharts.Chart({
     chart: {
-        renderTo: 'container1',
+        renderTo: 'chart12',
         zoomType: 'xy'
     },
     title: {
@@ -419,8 +298,6 @@ function chart2(){
         title: {
         text: '',
         },
-        min: 0,
-        max: 3000,
         labels: {
         format: '{value}',
         },
@@ -438,7 +315,7 @@ function chart2(){
         name: 'Cumulative average',
         type: 'line',
         //Average Line
-        data: charts.app.avg,
+        data: table[5],
         color: '#888888',
         zIndex: 2
 
@@ -448,7 +325,7 @@ function chart2(){
         type: 'column',
         yAxis: 1,
         //Green
-        data: Object.values(charts.app.col1),
+        data: table[4],
         color: '#0E9D58'
 
         }, {
@@ -456,7 +333,7 @@ function chart2(){
         type: 'column',
         yAxis: 1,
         //Light green
-        data: Object.values(charts.app.col2),
+        data: table[3],
         color: '#BFD047'
 
         },
@@ -465,7 +342,7 @@ function chart2(){
         type: 'column',
         yAxis: 1,
         //Yellow
-        data: Object.values(charts.app.col3),
+        data: table[2],
         color: '#FFC105'
 
         }, {
@@ -473,7 +350,7 @@ function chart2(){
         type: 'column',
         yAxis: 1,
         //Orange
-        data: Object.values(charts.app.col4),
+        data: table[1],
         color: '#EF7E14'
 
         }, {
@@ -481,12 +358,72 @@ function chart2(){
         type: 'column',
         yAxis: 1,
         //Red 
-        data: Object.values(charts.app.col5),
+        data: table[0],
         color: '#D36259'
 
         }
     ]
     });
+}
+
+function getChartValues(date){
+  var values = [];
+  var j = 0;
+  var charts = {};
+  var url = "http://52.172.1.187:8097/api/CumulativeCount/GetTrends?Todate="
+  var url = url.concat(date);
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": url,
+    "method": "GET",
+    "headers": {
+        "Accept" : "*/*",
+        "contentType" : 'application/json'
+    },
+    error: function(xhr, error) {
+        alert("Charts API failed");
+    }
+  };
+  $.ajax(settings).done(function(oResponse) {
+      if (oResponse) {
+        charts = oResponse;
+        var Gplaychart = [];
+        if(charts.Gplay){
+          for(var i = 0; i<charts.Gplay.columnsdate.length; i++){
+            if(charts.Gplay.columnsdate && charts.Gplay.columnsdate[i]){ 
+              for(var key in charts.Gplay.columnsdate[i]){
+                var val = charts.Gplay.columnsdate[i][key];
+                values[j] = val;
+                j++;
+              }
+              Gplaychart.push(values);
+              j = 0;
+              values = [];
+            }
+          }
+          Gplaychart.push(charts.Gplay.avg);
+          chart1(Gplaychart);
+        }
+        if(charts.app){
+          var Appchart = [];
+          for(var i = 0; i<charts.app.columnsdate.length; i++){
+            if(charts.app.columnsdate && charts.app.columnsdate[i]){ 
+              for(var key in charts.app.columnsdate[i]){
+                var val = charts.app.columnsdate[i][key];
+                values[j] = val;
+                j++;
+              }
+              Appchart.push(values);
+              j = 0;
+              values = [];
+            }
+          }
+          Appchart.push(charts.app.avg);
+          chart2(Appchart);
+        }
+      }
+  });
 }
 
 //To save as PDF
@@ -497,47 +434,14 @@ function myFunction() {
 //To get from and to date
 function getDate(){
   fromDate = $("#fromdatepicker").val();
-  toDate = $("#todatepicker").val();
   var month = fromDate[0]+fromDate[1];
   var date = fromDate[3]+fromDate[4];
   var year = fromDate[6]+fromDate[7]+fromDate[8]+fromDate[9];
   fromDate = " ";
   fromDate = month + '-' + date + '-' + year;
-  var month = toDate[0]+toDate[1];
-  var date = toDate[3]+toDate[4];
-  var year = toDate[6]+toDate[7]+toDate[8]+toDate[9];
-  toDate = " ";
-  toDate = month + '-' + date + '-' + year;
-  console.log(toDate);
-  console.log(fromDate);
+  document.getElementById("date").innerHTML = fromDate;
   document.querySelector(".container").style.display = "block";
-  document.querySelector(".chart").style.display = "block";
-  setRating();
-  createTableApp();
-  createTableGplay();
-  chart1();
-  chart2();
-}
-
-function apicall(){
-  var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "https://api.getcloudcherry.com/api/Settings",
-    "method": "POST",
-    "headers": {
-        "Accept" : "*/*",
-        "contentType" : 'application/x-www-form-urlencoded; charset=UTF-8',
-        "Authorization": auth_token
-    },
-    "data": body,
-    error: function(xhr, error) {
-        alert("Settings API failed");
-    }
-  };
-  $.ajax(settings).done(function(oResponse) {
-      if (oResponse) {
-          console.log(oResponse);
-      }
-  });
+  ratingsApi(fromDate);
+  getAppValues(fromDate);
+  getChartValues(fromDate);
 }
