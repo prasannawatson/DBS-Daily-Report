@@ -1,8 +1,9 @@
 $('#fromdatepicker').datepicker();
 var fromDate;
+var months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 //To get ratings
-function ratingsApi(date){ 
+function ratingsApi(date, month){ 
   var url = "http://52.172.1.187:8097/api/CumulativeCount/Getvalues?Todate="
   var url = url.concat(date);
   var settings = {
@@ -21,13 +22,15 @@ function ratingsApi(date){
   $.ajax(settings).done(function(oResponse) {
       if (oResponse) {
         rating = oResponse;
-        setRating(rating);
+        setRating(rating,month);
       }
   });
 }
 
 //To set ratings
-function setRating(rating){
+function setRating(rating, selectedMonth){
+  document.getElementById("month").innerHTML = months[selectedMonth-1];
+  document.getElementById("month1").innerHTML = months[selectedMonth-1];
   document.getElementById("gplay-rating").innerHTML = rating.Gplay.count;
   document.getElementById("app-rating").innerHTML = rating.app.count; 
   document.getElementById("gplay-average").innerHTML = rating.Gplay.average;
@@ -434,6 +437,7 @@ function myFunction() {
 //To get from and to date
 function getDate(){
   fromDate = $("#fromdatepicker").val();
+  document.querySelector(".datepicker").style.display = "none";
   var month = fromDate[0]+fromDate[1];
   var date = fromDate[3]+fromDate[4];
   var year = fromDate[6]+fromDate[7]+fromDate[8]+fromDate[9];
@@ -441,7 +445,7 @@ function getDate(){
   fromDate = month + '-' + date + '-' + year;
   document.getElementById("date").innerHTML = fromDate;
   document.querySelector(".container").style.display = "block";
-  ratingsApi(fromDate);
+  ratingsApi(fromDate,month);
   getAppValues(fromDate);
   getChartValues(fromDate);
 }

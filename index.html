@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./css/style.css" type="text/css" media="screen">
   <link rel="stylesheet" href="./css/print.css" type="text/css" media="print">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
   <title>DBS Report</title>
 
@@ -43,10 +44,10 @@
         <h2 class="heading"><span>Highlights of the day <span id="date"> </span> </span></h2>
         <div class="row rating">
         <div class="col-lg-6 calculation">
-           <p> <span><img src="./images/Playstore.png" alt="img"/></span><span>Google Playstore Rating: </span></p>
+           <p> <span><img class="image" src="./images/Playstore.png" alt="img"/></span><span>Google Playstore Rating: </span></p>
             <p><span>Total number of ratings for the day: </span><span id = "gplay-rating" style="font-size:24px"></span></p>
-            <p><span>Average Rating for the day: </span><span id = "gplay-average"><b></b></span></p>
-            <p><span>July MTD rating: </span><span id = "gplay-MTD"><b></b></span></p>
+            <p><span>Average Rating for the day: </span><span><b  id = "gplay-average"></b></span></p>
+            <p><span id="month"> </span> <span> MTD rating: </span><span><b id = "gplay-MTD"></b></span></p>
           <h2>Top 10 issues highlighted for the day:</h2>
            <table class="table table-bordered" id = "myTable-gplay">
               <thead>
@@ -59,10 +60,10 @@
             </table>
         </div>
         <div class="col-lg-6 calculation" id="rating2">
-            <p><span><img src="./images/In-App-rating.png" alt="img"/></span><span>In App 5-star Rating: </span></p>
+            <p><span><img class="image" src="./images/In-App-rating.png" alt="img"/></span><span>In App 5-star Rating: </span></p>
             <p><span>Total number of ratings for the day: </span><span id = "app-rating" style="font-size:24px"></span></p>
-            <p><span>Average Rating for the day: </span><span id = "app-average"><b> </b></span></p>
-            <p><span>July MTD rating: </span><span id = "app-MTD"><b></b></span></p>
+            <p><span>Average Rating for the day: </span><span><b id = "app-average"> </b></span></p>
+            <p><span id="month1"> </span> <span> MTD rating: </span> <span><b id = "app-MTD"></b></span></p>
             <h2>Top 10 issues highlighted for the day:</h2>
             <table class="table table-bordered" id = "myTable-app">
               <thead>
