@@ -1,11 +1,13 @@
 $('#fromdatepicker').datepicker();
 var fromDate;
 var months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
+var baseUrl = "https://solutions-dev.getcloudcherry.com:8093";
 //To get ratings
 function ratingsApi(date, month){ 
-  var url = "http://52.172.1.187:8097/api/CumulativeCount/Getvalues?Todate="
+  var url = "/api/CumulativeCount/Getvalues?Todate="
+  var url = baseUrl.concat(url);
   var url = url.concat(date);
+  console.log(url);
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -101,8 +103,10 @@ function getAppValues(date){
   header = [ "Theme", "count", "proportions"];
   var values = [];
   var tables = {};
-  var url = "http://52.172.1.187:8097/api/CumulativeCount/Getissues?Todate="
+  var url = "/api/CumulativeCount/Getissues?Todate="
+  var url = baseUrl.concat(url);
   var url = url.concat(date);
+  console.log(url);
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -373,8 +377,10 @@ function getChartValues(date){
   var values = [];
   var j = 0;
   var charts = {};
-  var url = "http://52.172.1.187:8097/api/CumulativeCount/GetTrends?Todate="
+  var url = "/api/CumulativeCount/GetTrends?Todate="
+  var url = baseUrl.concat(url);
   var url = url.concat(date);
+  console.log(url);
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -406,7 +412,9 @@ function getChartValues(date){
             }
           }
           Gplaychart.push(charts.Gplay.avg);
-          chart1(Gplaychart);
+          if(charts.Gplay){
+            chart1(Gplaychart);
+          }
         }
         if(charts.app){
           var Appchart = [];
@@ -423,7 +431,9 @@ function getChartValues(date){
             }
           }
           Appchart.push(charts.app.avg);
-          chart2(Appchart);
+          if(charts.app){
+            chart2(Appchart);
+          }
         }
       }
   });
@@ -437,7 +447,8 @@ function myFunction() {
 //To get from and to date
 function getDate(){
   fromDate = $("#fromdatepicker").val();
-  document.querySelector(".datepicker").style.display = "none";
+  document.getElementById("fromdatepicker").style.disabled = "true";
+  document.getElementById("fromdatepicker").style.cursor = "no-drop";
   var month = fromDate[0]+fromDate[1];
   var date = fromDate[3]+fromDate[4];
   var year = fromDate[6]+fromDate[7]+fromDate[8]+fromDate[9];
