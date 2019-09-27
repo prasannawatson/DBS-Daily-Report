@@ -7,7 +7,7 @@ function ratingsApi(date, month){
   var url = "/api/CumulativeCount/Getvalues?Todate="
   var url = baseUrl.concat(url);
   var url = url.concat(date);
-  console.log(url);
+  //console.log(url);
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -106,7 +106,7 @@ function getAppValues(date){
   var url = "/api/CumulativeCount/Getissues?Todate="
   var url = baseUrl.concat(url);
   var url = url.concat(date);
-  console.log(url);
+  //console.log(url);
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -146,9 +146,9 @@ function getAppValues(date){
 }
 
 //Chart of google play
-function chart1(table){
+function chart1(table,keys){
   document.querySelector(".chart").style.display = "block";
-  // var keys;
+  //var keys;
   chart = new Highcharts.Chart({
       chart: {
         renderTo: 'chart11',
@@ -176,10 +176,10 @@ function chart1(table){
       credits: {
         text: 'getcloudcherry.com',
         href: 'https://www.getcloudcherry.com/'
-      },/*
+      },
       xAxis: [{
         categories: keys,
-      }],*/
+      }],
       yAxis: [{ // Primary yAxis
         labels: {
           format: '{value}',
@@ -255,8 +255,9 @@ function chart1(table){
 }
   
 //Chart of app
-function chart2(table){
-  var keys;
+function chart2(table, keys){
+  //console.log(keys);
+  //var keys;
   document.getElementById("chart2").style.display = "block";
     chart = new Highcharts.Chart({
     chart: {
@@ -380,7 +381,7 @@ function getChartValues(date){
   var url = "/api/CumulativeCount/GetTrends?Todate="
   var url = baseUrl.concat(url);
   var url = url.concat(date);
-  console.log(url);
+  //console.log(url);
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -398,6 +399,7 @@ function getChartValues(date){
       if (oResponse) {
         charts = oResponse;
         var Gplaychart = [];
+        var keys = [];
         if(charts.Gplay){
           for(var i = 0; i<charts.Gplay.columnsdate.length; i++){
             if(charts.Gplay.columnsdate && charts.Gplay.columnsdate[i]){ 
@@ -406,6 +408,9 @@ function getChartValues(date){
                 values[j] = val;
                 j++;
               }
+              for(var key in charts.Gplay.columnsdate[i]){
+                keys.push(key);
+              }
               Gplaychart.push(values);
               j = 0;
               values = [];
@@ -413,7 +418,7 @@ function getChartValues(date){
           }
           Gplaychart.push(charts.Gplay.avg);
           if(charts.Gplay){
-            chart1(Gplaychart);
+            chart1(Gplaychart, keys);
           }
         }
         if(charts.app){
@@ -432,7 +437,7 @@ function getChartValues(date){
           }
           Appchart.push(charts.app.avg);
           if(charts.app){
-            chart2(Appchart);
+            chart2(Appchart,keys);
           }
         }
       }
@@ -447,8 +452,9 @@ function myFunction() {
 //To get from and to date
 function getDate(){
   fromDate = $("#fromdatepicker").val();
-  document.getElementById("fromdatepicker").style.disabled = "true";
-  document.getElementById("fromdatepicker").style.cursor = "no-drop";
+  document.getElementById("fromdatepicker").style.display = "none";
+  //document.getElementById("fromdatepicker").style.cursor = "no-drop";
+  document.querySelector('.gj-icon').style.display = "none";
   var month = fromDate[0]+fromDate[1];
   var date = fromDate[3]+fromDate[4];
   var year = fromDate[6]+fromDate[7]+fromDate[8]+fromDate[9];
