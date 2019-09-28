@@ -449,20 +449,38 @@ function myFunction() {
   window.print();
 }
 
-//To get from and to date
+function clearTable(){
+  if(document.getElementById("myTable-gplay").rows.length>1){
+    for(var i = 1; i < 11; i++){
+      document.getElementById("myTable-gplay").deleteRow(1);  
+    }
+  }
+  if(document.getElementById("myTable-app").rows.length>1){
+    for(var i = 1; i < 11; i++){
+      document.getElementById("myTable-app").deleteRow(1);  
+    }
+  }
+}
+
+//To get from  date
 function getDate(){
   fromDate = $("#fromdatepicker").val();
-  document.getElementById("fromdatepicker").style.display = "none";
-  //document.getElementById("fromdatepicker").style.cursor = "no-drop";
-  document.querySelector('.gj-icon').style.display = "none";
-  var month = fromDate[0]+fromDate[1];
-  var date = fromDate[3]+fromDate[4];
-  var year = fromDate[6]+fromDate[7]+fromDate[8]+fromDate[9];
-  fromDate = " ";
-  fromDate = month + '-' + date + '-' + year;
-  document.getElementById("date").innerHTML = fromDate;
-  document.querySelector(".container").style.display = "block";
-  ratingsApi(fromDate,month);
-  getAppValues(fromDate);
-  getChartValues(fromDate);
+  console.log(fromDate);
+  if(fromDate != ""){
+    clearTable();
+    var month = fromDate[0]+fromDate[1];
+    var date = fromDate[3]+fromDate[4];
+    var year = fromDate[6]+fromDate[7]+fromDate[8]+fromDate[9];
+    fromDate = " ";
+    fromDate = month + '-' + date + '-' + year;
+    document.getElementById("date").innerHTML = fromDate;
+    document.querySelector(".container").style.display = "block";
+    ratingsApi(fromDate,month);
+    getAppValues(fromDate);
+    getChartValues(fromDate);
+  }
+  else{
+    alert("Please select a date");
+  }
+  
 }
