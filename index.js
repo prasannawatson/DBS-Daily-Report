@@ -148,6 +148,8 @@ function getAppValues(date){
 //Chart of google play
 function chart1(table,keys){
   document.querySelector(".chart").style.display = "block";
+  document.querySelector(".loader").style.display = "none";
+  document.querySelector(".container").style.display = "block";
   //var keys;
   chart = new Highcharts.Chart({
       chart: {
@@ -460,11 +462,14 @@ function clearTable(){
       document.getElementById("myTable-app").deleteRow(1);  
     }
   }
+  document.querySelector(".container").style.display = "none";
+  document.querySelector(".chart").style.display = "none";
 }
 
 //To get from  date
 function getDate(){
   fromDate = $("#fromdatepicker").val();
+  document.querySelector(".loader").style.display = "block";
   console.log(fromDate);
   if(fromDate != ""){
     clearTable();
@@ -474,7 +479,6 @@ function getDate(){
     fromDate = " ";
     fromDate = month + '-' + date + '-' + year;
     document.getElementById("date").innerHTML = fromDate;
-    document.querySelector(".container").style.display = "block";
     ratingsApi(fromDate,month);
     getAppValues(fromDate);
     getChartValues(fromDate);
