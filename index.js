@@ -469,9 +469,9 @@ function clearTable(){
 //To get from  date
 function getDate(){
   fromDate = $("#fromdatepicker").val();
-  document.querySelector(".loader").style.display = "block";
   console.log(fromDate);
   if(fromDate != ""){
+    document.querySelector(".loader").style.display = "block";
     clearTable();
     var month = fromDate[0]+fromDate[1];
     var date = fromDate[3]+fromDate[4];
