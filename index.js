@@ -159,6 +159,9 @@ function chart1(table,keys){
       title: {
         text: ''
       },
+         credits: {
+        enabled: false
+    },
       tooltip: {
         formatter: function () {
           return 'The value for <b>' + this.x + '</b> is <b>' + this.y /* + '</b>, in series ' + this.series.name;*/
@@ -174,10 +177,6 @@ function chart1(table,keys){
           },
           enableMouseTracking: false
         }
-      },
-      credits: {
-        text: 'getcloudcherry.com',
-        href: 'https://www.getcloudcherry.com/'
       },
       xAxis: [{
         categories: keys,
@@ -206,10 +205,7 @@ function chart1(table,keys){
       legend: {
         enabled: true
       },
-      credits: {
-        text: 'getcloudcherry.com',
-        href: 'https://www.getcloudcherry.com/'
-      },
+  
   
       series: [{
           name: 'Cumulative average',
@@ -269,6 +265,9 @@ function chart2(table, keys){
     title: {
         text: ''
     },
+    credits: {
+      enabled: false
+  },
     tooltip: {
         formatter: function () {
         return 'The value for <b>' + this.x + '</b> is <b>' + this.y /* + '</b>, in series ' + this.series.name;*/
@@ -284,10 +283,6 @@ function chart2(table, keys){
         },
         enableMouseTracking: false
         }
-    },
-    credits: {
-        text: 'getcloudcherry.com',
-        href: 'https://www.getcloudcherry.com/'
     },
     xAxis: [{
         categories: keys,
@@ -316,10 +311,7 @@ function chart2(table, keys){
     legend: {
         enabled: true
     },
-    credits: {
-        text: 'getcloudcherry.com',
-        href: 'https://www.getcloudcherry.com/'
-    },
+ 
 
     series: [{
         name: 'Cumulative average',
@@ -449,6 +441,14 @@ function getChartValues(date){
 //To save as PDF
 function myFunction() {
   window.print();
+  /*var doc = new jsPDF();
+
+$('#download-pdf').click(function () {
+    doc.fromHTML($('#content').html(), 15, 15, {
+        'width': 170
+    });
+    doc.save('DBS-report.pdf');
+});*/
 }
 
 function clearTable(){
